@@ -62,7 +62,7 @@
     git init
   p Създава празно хранилище в текущата директория.
 
-  p.action Виждате папката `.git` - съхранява всичко, което му е нужно.
+  pre.action Виждате папката .git - съхранява всичко, което му е нужно.
 
 = slide 'Клониране на хранилище' do
   example:
@@ -79,7 +79,7 @@
     `Unmodified` - вече част от предишен commit и няма промени
     `Modified` - направени са промени, които не са готови за commit
     `Staged` - променени и готови за commit
-  p.action Staging area -> `.git/index`
+  pre.action Staging area - .git/index
 
 = slide '4 състояния на файл' do
   img src="15/file-states.png"
@@ -91,7 +91,7 @@
   example:
     git diff
   p.action Промени на файловете в работната директория спрямо тези в индекса.
-           С `--cached` - промени на файлове в индекса, спрямо последния commit.
+           С --cached - промени на файлове в индекса, спрямо последния commit.
   example:
     git add new_or_modified.rb
   p.action Добавя файла към индекса
@@ -111,8 +111,8 @@
     Дърво (`tree`) - списък от (указатели към) файлове и дървета
     `Commit` - за него след малко
     `Tag` - указател към конкретен commit
-  p.action Съхраняват се в `.git/objects`
-  p.action Всеки обект се идентифицира с `sha1` хеш
+    Съхраняват се в `.git/objects`
+    Всеки обект се идентифицира с `sha1` хеш
 
 = slide 'Commits 1' do
   h2 Конкретна версия на дърво (snapshot)
@@ -180,7 +180,7 @@
     Branch по подразбиране - `master`
     `HEAD` - указател към текущия branch
     Локалните и отдалечените са различни - `master` vs `origin/master`
-  p.action `.git/refs/heads/<branch name>`
+    `.git/refs/heads/<branch name>`
 
 = slide 'Branches 1' do
   img src='15/graph-branch.png'
@@ -208,7 +208,8 @@
   example:
     git push
     git push origin killer-feature
-  p.action `origin` е име на отдалечено хранилище - това, от което сме клонирали.
+  list:
+    `origin` е име на отдалечено хранилище - това, от което сме клонирали.
 
 = slide 'Сливане' do
   example:
