@@ -238,6 +238,7 @@
   h2 Изтриване
   example:
     git branch -d killer-feature
+    git push origin --delete killer-feature # Ако сте го push-нали
   list:
     Премахва само указателя, commit-ите се пазят
     Дори ако е останал commit, който е извън историята, пак може да се възстанови
@@ -274,6 +275,7 @@
 = slide 'Машината на времето' do
   example:
     git commit --amend
+    git push --force   # Ако вече сте push-нали
   list:
     Променя последния commit. А дали наистина?
     Всъщност създава нов commit, чийто предшественик е предшественика на последния commit
@@ -296,15 +298,45 @@
     Можете да намерите ID-тата на изгубени commit-и и да ги възстановите
     Понякога се чисти
 
-= slide 'Има още много интересни неща...' do
-  h2 ...но няма да се побере в една лекция.
+
+= slide 'Игнориране на файлове' do
+  h2 Файлът .gitignore
   list:
-    .gitignore
-    git fetch
-    git cherry-pick
-    git bisect
-    git blame
-    ...
+    Често има файлове, които не искаме git да следи
+    Например компилирани двоични файлове, временни файлове, конфигурационен файл с API ключове и т.н.
+    Всеки ред в `.gitignore` е шаблон за файлове/директории, които трябва да бъдат игнорирани
+    Това означава, че няма да се виждат в `git status`
+
+= slide 'Игнориране на файлове' do
+  h2 Формат на .gitignore
+  example:
+    \/bin           # Файла/директорията bin в главната директория на проекта
+    bin             # Всички файлове и директории с име bin
+    bin/            # Всички директории с име bin
+    compiled/*.html # Всички файлове с разширение html в compiled-lectures
+    lib/**/*.txt    # Всички текстови файлове в lib или нейна поддиректория
+    *.exe           # Всички изпълними файлове за Windows
+
+= slide 'Git rebase' do
+  h2 Пренаписване на историята в пълния му смисъл
+  example:
+    git checkout killer-feature
+    git rebase master
+    git rebase -i master
+    git rebase -i HEAD~4
+  list:
+    Пресъздава промените от текущия branch все едно са направени върху сегашното състояние на `master`
+    С -i ви позволява да си премахнете, промените или слеете commit-и от историята
+    Трябва да направите `git push --force` ако вече сте push-нали branch-a, който променяте
+    Отново - избягвайте да го правите ако промените вече са публикувани
+
+= slide 'Git blame' do
+  h2 Или "Кой написа това извращение?"
+  example:
+    git blame -- lectures/index.yml
+  list:
+    За всеки ред от файла показва кога последно е променян и от кой
+
 
 = slide 'Изводи' do
   list:
@@ -318,3 +350,9 @@
     `git command --help`
     `man git`
     `man git-command`
+
+= slide 'Материали' do
+  p
+  list:
+    Добър туториал за начинаещи с терминалния интерфейс - [Try git](http://try.github.io/levels/1/challenges/1)
+    Безплатна книга с много подробни обяснения - [Pro Git](http://git-scm.com/book)
