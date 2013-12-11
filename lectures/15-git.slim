@@ -391,3 +391,64 @@
     Запознайте се с [ръководството и някои ЧЗВ около проектите](https://github.com/fmi/ruby-course-guides/blob/master/course_projects.md#readme)
     Размер и сложност - 10 задачи или 60 предизвикателства :)
     Най-важното е да си изберете тема, която ви харесва
+
+= slide 'Hash#to_proc', 'слайдове от бонус нивото' do
+  p Да кажем, че имаме следния код:
+
+  example:
+    CURRENCY_NAMES = {
+      BGN: 'Bulgarian lev',
+      EUR: 'Euro',
+      USD: 'United States dollar',
+      CHF: 'Swiss frank',
+    }.freeze
+
+    [:BGN, :CHF, :EUR].map { |currency_code| CURRENCY_NAMES[currency_code] }
+    # => ["Bulgarian lev", "Swiss frank", "Euro"]
+
+= slide 'Hash#to_proc', 'алтернативна имплементация' do
+  p Нека предположим, че имаме следната имплементация на <code>Hash#to_proc</code>:
+
+  example:
+    class Hash
+      def to_proc
+        proc { |key| self[key] }
+      end
+    end
+
+  list:
+    По идея на [(1)](http://shugo.net/jit/20131107.html) и [(2)](http://blog.rubyenrails.nl/articles/2008/02/26/a-hash-is-a-function-hash-to_proc.html)
+
+= slide 'Hash#to_proc', 'алтернативна имплементация' do
+  p Тогава можем да направим следното:
+
+  example:
+    CURRENCY_NAMES = {
+      BGN: 'Bulgarian lev',
+      EUR: 'Euro',
+      USD: 'United States dollar',
+      CHF: 'Swiss frank',
+    }.freeze
+
+    [:BGN, :CHF, :EUR].map &CURRENCY_NAMES
+    # => ["Bulgarian lev", "Swiss frank", "Euro"]
+
+= slide 'Hash#to_proc', 'още приложения на горното' do
+  p Удобни изглеждат и следните хипотетични употреби:
+
+  example:
+    VALID_CURRENCIES = {
+      BGN: true,
+      EUR: true,
+      USD: true,
+      CHF: true,
+    }.freeze
+
+    valid_currencies = [:BGN, :CHF, :EUR].select(&VALID_CURRENCIES)
+
+    # Or:
+    if currencies.any? &VALID_CURRENCIES
+    end
+
+    # Or:
+    words.reject(&FORBIDDEN_WORDS)
