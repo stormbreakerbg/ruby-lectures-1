@@ -1,9 +1,35 @@
 = slide 'Днес' do
   list:
-    Ще опознаем git
+    Ще опознаем Git с помощта на [Георги](/users/10)
     Ще погледнем под капака
     Ще го издигнем в култ
+    В края на презентацията ще дадем информация за проектите към курса
+    Ще ви дадем и трета задача
 
+= slide 'Бъдещето на образованието', 'лирическо отклонение' do
+  list:
+    На 30 ноември в Благоевград се проведе [BlagoevgradConf](http://blagoevgradconf.com/)
+    Последното събитие от серия такива, които правим из страната и които сме кръстили гръмко "Турнето"
+    Извън столицата, защото там има страшна нужда от такива събития
+    Там [Радо (HackFMI) говори (запис)](http://blagoevgradconf.com/#schedule) за проблемите в образованието днес и [вижданията си за възможни решения (слайдове)](http://www.slideshare.net/HackBulgaria/blagoevgradconf)
+    (Дайте му [feedback](https://www.facebook.com/mitio/posts/10153597438575607))
+
+= slide 'Flipped Classrooms' do
+  img src="15/flipped-classroom.jpg"
+
+= slide 'Образование' do
+  ul
+    li Аз искам да съм част от такъв модел
+    li За съжаление, все още сме далеч от възможността да го приложим
+    li Вярвам, обаче, че можем да работим в тази посока
+
+= slide 'Образование' do
+  img src="15/educate-your-mate.jpg"
+
+= slide 'Образование', 'и вашата роля' do
+  list:
+    Днес, например, [Георги](/users/10) ще ни поговори малко за VSC и защо Git е скалпелът на програмиста
+    Искам да има повече такива включвания от ваша страна - пишете на [fmi@ruby.bg](mailto:fmi@ruby.bg)
 
 = slide 'Version Control System (VCS)' do
   h2 Не просто система, следяща промени в код!
@@ -46,7 +72,6 @@
     Почти винаги отново има един основен сървър.
     Повечето от операциите се правят локално - не ви е необходим интернет.
     Когато решите - синхронизирате се с който и да е друг сървър.
-
 
 = slide 'Защо точно git?' do
   list:
@@ -298,7 +323,6 @@
     Можете да намерите ID-тата на изгубени commit-и и да ги възстановите
     Понякога се чисти
 
-
 = slide 'Игнориране на файлове' do
   h2 Файлът .gitignore
   list:
@@ -337,7 +361,6 @@
   list:
     За всеки ред от файла показва кога последно е променян и от кой
 
-
 = slide 'Изводи' do
   list:
     Няма да минете без него...
@@ -356,3 +379,76 @@
   list:
     Добър туториал за начинаещи с терминалния интерфейс - [Try git](http://try.github.io/levels/1/challenges/1)
     Безплатна книга с много подробни обяснения - [Pro Git](http://git-scm.com/book)
+
+= slide 'Въпроси по Git?' do
+  p Сега е добър момент да ги зададете.
+
+= slide 'Проекти' do
+  list:
+    Носят до 60 точки, срокът за писането им е до датата на защита (в сесията)
+    Вие си избирате тема и ни пишете на [fmi@ruby.bg](mailto:fmi@ruby.bg), ние я одобряваме
+    Крайният срок да си изберете тема и да ви я одобрим, е <strong>24.12.2013</strong>, 23:59:59 (ще има новина с инструкции)
+    Запознайте се с [ръководството и някои ЧЗВ около проектите](https://github.com/fmi/ruby-course-guides/blob/master/course_projects.md#readme)
+    Размер и сложност - 10 задачи или 60 предизвикателства :)
+    Най-важното е да си изберете тема, която ви харесва
+
+= slide 'Hash#to_proc', 'слайдове от бонус нивото' do
+  p Да кажем, че имаме следния код:
+
+  example:
+    CURRENCY_NAMES = {
+      BGN: 'Bulgarian lev',
+      EUR: 'Euro',
+      USD: 'United States dollar',
+      CHF: 'Swiss frank',
+    }.freeze
+
+    [:BGN, :CHF, :EUR].map { |currency_code| CURRENCY_NAMES[currency_code] }
+    # => ["Bulgarian lev", "Swiss frank", "Euro"]
+
+= slide 'Hash#to_proc', 'алтернативна имплементация' do
+  p Нека предположим, че имаме следната имплементация на <code>Hash#to_proc</code>:
+
+  example:
+    class Hash
+      def to_proc
+        proc { |key| self[key] }
+      end
+    end
+
+  list:
+    По идея на [(1)](http://shugo.net/jit/20131107.html) и [(2)](http://blog.rubyenrails.nl/articles/2008/02/26/a-hash-is-a-function-hash-to_proc.html)
+
+= slide 'Hash#to_proc', 'алтернативна имплементация' do
+  p Тогава можем да направим следното:
+
+  example:
+    CURRENCY_NAMES = {
+      BGN: 'Bulgarian lev',
+      EUR: 'Euro',
+      USD: 'United States dollar',
+      CHF: 'Swiss frank',
+    }.freeze
+
+    [:BGN, :CHF, :EUR].map &CURRENCY_NAMES
+    # => ["Bulgarian lev", "Swiss frank", "Euro"]
+
+= slide 'Hash#to_proc', 'още приложения на горното' do
+  p Удобни изглеждат и следните хипотетични употреби:
+
+  example:
+    VALID_CURRENCIES = {
+      BGN: true,
+      EUR: true,
+      USD: true,
+      CHF: true,
+    }.freeze
+
+    valid_currencies = [:BGN, :CHF, :EUR].select(&VALID_CURRENCIES)
+
+    # Or:
+    if currencies.any? &VALID_CURRENCIES
+    end
+
+    # Or:
+    words.reject(&FORBIDDEN_WORDS)
