@@ -189,6 +189,13 @@
     Други метаданни...
 
 = slide 'Commits 2' do
+  p Всичко е просто файл
+  example:
+    git cat-file -p 5fae695
+  list:
+    `5fae695` е част от hash-a на commit-a
+
+= slide 'Commits 3' do
   p Списък с commit-и
   example:
     git log
@@ -200,7 +207,7 @@
     git log --author 'Dimitar Dimitrov'
     git log -- lectures/01-introduction-to-ruby.slim
 
-= slide 'Commits 3' do
+= slide 'Commits 4' do
   p Да разгледаме
   example:
     git show 5fae69568cd5420e13a34c06f6f495ea9bcb9a4e
