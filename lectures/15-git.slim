@@ -208,7 +208,7 @@
     git log --until=2013-11-30
     git log --grep 'Proc.new'
     git log --author 'Dimitar Dimitrov'
-    git log -- lectures/01-introduction-to-ruby.slim
+    git log lectures/01-introduction-to-ruby.slim
 
 = slide 'Commits 4' do
   p Да разгледаме
@@ -331,8 +331,8 @@
 
 = slide 'Машината на времето' do
   example:
-    git reset <commit> -- <files>
-    git reset HEAD -- lectures/git.slim
+    git reset <commit> <files>
+    git reset HEAD lectures/git.slim
   list:
     Променя файлове в staging областта, като ги взима от хранилището
     В случая `HEAD` указва от кой точно commit да се вземе файла. Там може да има и хеш на commit
@@ -342,7 +342,7 @@
 
 = slide 'Машината на времето' do
   example:
-    git checkout -- <files>
+    git checkout <files>
   list:
     Променя файлове в работната директория, като ги взима от staging областта
     Внимание! Може да изгубите код!
@@ -409,7 +409,7 @@
 = slide 'Git blame' do
   h2 Или "Кой написа това?"
   example:
-    git blame -- lectures/index.yml
+    git blame lectures/index.yml
 
 = slide 'Изводи' do
   list:
